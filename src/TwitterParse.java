@@ -9,9 +9,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *The purpose of this class is to analyze the following:
+ * The purpose of this class is to analyze the following:
  * Login to a specific Twitter account.
- * Login to a particular user's Twitter page.
+ * Enter the particular user's Twitter page.
  * Retrieving a certain amount of recent tweets.
  * Bringing conclusions about the tweets extracted:
  * 1. A list of all the hashtags.
@@ -24,15 +24,15 @@ import java.util.regex.Pattern;
 public class TwitterParse {
 
     //Storage list of all hashtags
-    private static HashSet<String> hashtagList = new HashSet();
+    protected static HashSet<String> hashtagList = new HashSet();
     //Storage list of all mentions
-    private static HashSet<String> mentionList = new HashSet();
+    protected static HashSet<String> mentionList = new HashSet();
     //Largest tweet length
-    private static int largestTweetLength = 0;
+    protected static int largestTweetLength = 0;
     //Smallest tweet length
-    private static int smallestTweetLength = Integer.MAX_VALUE;
+    protected static int smallestTweetLength = Integer.MAX_VALUE;
     //Average tweet length
-    private static int averageTweetLength = 0;
+    protected static int averageTweetLength = 0;
 
     private static final int MAXIMUM_TWEET_PIXELS = 200;
 
@@ -86,9 +86,9 @@ public class TwitterParse {
     }
 
     /**
-     * This function takes the top tweets and filters features from them into the global variables
+     * This function takes the top tweets and filters features from them
      * @param driver The initialized driver with which to open the browser
-     * @param tweetsNumToTake The amount of top tweets to take
+     * @param tweetsNumToTake The amount of top tweets to retrieve
      * @throws InterruptedException For the thread
      */
     public static void takeTopTweets(WebDriver driver , int tweetsNumToTake) throws InterruptedException {
@@ -102,11 +102,7 @@ public class TwitterParse {
         //The amount of pixels to scroll down the page
         int pixelToScroll = MAXIMUM_TWEET_PIXELS;
 
-        //The amount of pixels of the page to check if we have reached the bottom of the page
-        long lastHeight=((Number)js.executeScript("return document.body.scrollHeight")).longValue();
-        long newHeight;
-
-        //Make a move over all the top tweets
+        //Iterate over all the top tweets
         while (tweets.size() < tweetsNumToTake) {
 
             //Running a script for scrolling the page
@@ -129,12 +125,9 @@ public class TwitterParse {
                 }
                 index++;
             }
+
             previousSize = tweets.size();
 
-            //Calculate new scroll height and compare with last scroll height.
-//            newHeight = ((Number)js.executeScript("return document.body.scrollHeight")).longValue();
-//            if (newHeight == lastHeight) break;
-//            lastHeight = newHeight;
         }
 
         //Calculate the average tweet length
@@ -158,7 +151,7 @@ public class TwitterParse {
      */
     public static void filterHashtags(String tweetContent){
 
-        //Filter all words which start with '#'
+        //Filter all words with '#' prefix
         Pattern hashtagPattern = Pattern.compile("#\\w+");
         Matcher hashtagMatcher = hashtagPattern.matcher(tweetContent);
 
@@ -174,7 +167,7 @@ public class TwitterParse {
      */
     public static void filterMentions(String tweetContent){
 
-        //Filter all words which start with '@'
+        //Filter all words with '@' prefix
         Pattern mentionPattern = Pattern.compile("@\\w+");
         Matcher mentionMatcher = mentionPattern.matcher(tweetContent);
 
@@ -186,19 +179,23 @@ public class TwitterParse {
 
     public static void main(String[] args) throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver" , "C:/Users/יראת פלג/Downloads/chromedriver.exe");
+        String path = "C:/Users/יראת פלג/Downloads/chromedriver.exe";
+        String username = "Yirat6";
+        String password = "yirat315";
+        String handleTwitter = "@YouTube";
+        int tweetNumToTake = 10;
+
+        System.setProperty("webdriver.chrome.driver" , path);
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        loginToTwitter(driver , "Yirat6" , "yirat315");
-
+        loginToTwitter(driver , username , password);
         Thread.sleep(1000);
 
-        searchTwitter(driver , "@amit_segal");
-
+        searchTwitter(driver , handleTwitter);
         Thread.sleep(2000);
 
-        takeTopTweets(driver , 100);
+        takeTopTweets(driver , tweetNumToTake);
 
         System.out.println("hashtag List: " + hashtagList);
         System.out.println("mention List: " + mentionList);
