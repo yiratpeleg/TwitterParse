@@ -22,7 +22,7 @@ The program will return the following information to the console:
 1. Have java environment setup
 2. Clone the repository and go to the cloned directory
 3. Install selenium WebDriver and import the libraries to your project
-4. Edit the following variables in the main function:
+4. Edit the following variables in the [main]((https://github.com/yiratpeleg/TwitterParse/blob/main/src/TwitterParse.java)) function:
    * path - The path on your computer where the chrome driver executable file is located (ChromeDriver 88.0.4324.96)
    * username - Your username to twitter
    * password - Your password to twitter
