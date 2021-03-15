@@ -73,11 +73,12 @@ public class TwitterParse {
      */
     public static void searchTwitter(WebDriver driver , String handleTwitter) throws InterruptedException {
 
+        Thread.sleep(1000);
         //Get the search box element and enter the handle twitter in it
         WebElement searchBox = driver.findElement(By.xpath("//div/input[@data-testid='SearchBox_Search_Input']"));
         searchBox.clear();
         searchBox.sendKeys(handleTwitter);
-        Thread.sleep(6000);
+        Thread.sleep(1000);
         searchBox.submit();
         Thread.sleep(2000);
 
@@ -179,6 +180,7 @@ public class TwitterParse {
 
     public static void main(String[] args) throws InterruptedException {
 
+        //Five modifiable variables
         String path = "C:/Users/יראת פלג/Downloads/chromedriver.exe";
         String username = "Yirat6";
         String password = "yirat315";
@@ -202,8 +204,6 @@ public class TwitterParse {
         System.out.println("The largest Tweet Length is: " + largestTweetLength);
         System.out.println("The smallest Tweet Length is: " + smallestTweetLength);
         System.out.println("The average of Tweets Length is: " + averageTweetLength);
-
-        Thread.sleep(5000);
 
         driver.quit();
     }
