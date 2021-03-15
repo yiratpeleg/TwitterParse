@@ -14,6 +14,8 @@ The program will return the following information to the console:
    * The smallest tweet length
    * The average of tweet length
 
+#### The following video shows retrieving information from the top ten tweets of YouTube:
+
 <img width="800"  src="https://user-images.githubusercontent.com/57325378/111115500-5cd00c00-856d-11eb-8c14-ea608086210e.gif">
 
 
@@ -29,3 +31,8 @@ The program will return the following information to the console:
    * handleTwitter - The handle twitter you want to search
    * tweetNumToTake - The amount of top tweets to retrieve
 5. Run the main
+
+#### Image to understand the difference between a user and a twitter handle:
+Note that handle is unique but user is not unique
+
+<img width="465"  src="https://user-images.githubusercontent.com/57325378/111116724-1aa7ca00-856f-11eb-852c-0abc887aaef5.png">
